@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fake Discord Embed Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Fake Discord Embed Generator</h1>
+    <form id="embed-form" autocomplete="off">
+      <label>
+        Embed Title:
+        <input type="text" id="embed-title" name="title" maxlength="256" />
+      </label>
+      <label>
+        Author:
+        <input type="text" id="embed-author" name="author" maxlength="256" />
+      </label>
+      <label>
+        Description:
+        <textarea id="embed-description" name="description" maxlength="2048"></textarea>
+      </label>
+      <div id="fields-container">
+        <h3>Fields</h3>
+        <div class="fields-list" id="fields-list"></div>
+        <button type="button" id="add-field-btn">Add Field</button>
+      </div>
+      <div class="actions">
+        <button type="button" id="create-btn">Create Fake Embed Link</button>
+      </div>
+    </form>
+    <div class="preview-section">
+      <h2>Embed Preview</h2>
+      <div id="embed-preview" class="embed"></div>
+    </div>
+    <div id="link-section" style="display:none;">
+      <h2>Your Fake Embed Link:</h2>
+      <input id="embed-link" readonly />
+      <button id="copy-link-btn">Copy Link</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
