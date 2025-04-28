@@ -78,6 +78,31 @@ function renderPreview() {
   }
 }
 
+// Dynamically update meta tags in head (for human preview only)
+function updateMetaTags({ title, author, description }) {
+  // Fallback image
+  const image = "https://i.imgur.com/8Km9tLL.png";
+  function setMeta(name, value, isProperty = true) {
+    let tag = document.querySelector(`${isProperty ? 'meta[property' : 'meta[name]'}="${name}"]`);
+    if (!tag) {
+      tag = document.createElement('meta');
+      tag.setAttribute(isProperty ? "property" : "name", name);
+      document.head.appendChild(tag);
+    }
+    tag.setAttribute("content", value);
+  }
+
+  setMeta("og:title", title || "Fake Discord Embed Generator");
+  setMeta("og:description", description || "Create a fake Discord embed and preview it.");
+  setMeta("og:image", image);
+  setMeta("og:type", "website");
+  setMeta("twitter:title", title || "Fake Discord Embed Generator", false);
+  setMeta("twitter:description", description || "Create a fake Discord embed and preview it.", false);
+  setMeta("twitter:image", image, false);
+  setMeta("twitter:card", "summary_large_image", false);
+  if (author) setMeta("og:author", author);
+}
+
 function updateFieldsList() {
   const fieldsList = document.getElementById('fields-list');
   const fieldRows = Array.from(document.querySelectorAll('.field-row'));
@@ -167,7 +192,7 @@ document.getElementById('copy-link-btn').onclick = function() {
   setTimeout(() => this.textContent = 'Copy Link', 1200);
 };
 
-// If on page load there are query params, show preview for them
+// On page load, if there are query params, show preview and update meta tags
 window.addEventListener('DOMContentLoaded', () => {
   const params = new URLSearchParams(window.location.search);
   const title = params.get('title') || '';
@@ -188,4 +213,5 @@ window.addEventListener('DOMContentLoaded', () => {
     addField();
   }
   renderPreview();
+  updateMetaTags({ title, author, description });
 });
